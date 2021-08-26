@@ -1,7 +1,12 @@
-import { Route } from "react-router-dom";
+// switch prevents rendering all "matching routes"
+// e.g: /products/productId will render both /products and /products/productId
+// switch makes it so it only renders the first match
+// you can give a Route componenent an "exact" property to make it only render if it's am exact match
+import { Route, Switch } from "react-router-dom";
 
 import Welcome from "./pages/Welcome";
 import Products from "./pages/Products";
+import ProductDetail from "./pages/ProductDetail";
 
 import MainHeader from "./components/MainHeader";
 
@@ -10,12 +15,17 @@ function App() {
 		<div>
 			<MainHeader />
 			<main>
-				<Route path="/welcome">
-					<Welcome />
-				</Route>
-				<Route path="/products">
-					<Products />
-				</Route>
+				<Switch>
+					<Route path="/welcome">
+						<Welcome />
+					</Route>
+					<Route path="/products" exact>
+						<Products />
+					</Route>
+					<Route path="/products/:productId">
+						<ProductDetail />
+					</Route>
+				</Switch>
 			</main>
 		</div>
 	);
